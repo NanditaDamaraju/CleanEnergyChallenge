@@ -12,7 +12,7 @@ L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
-// Add GeoJSON
+//Add GeoJSON
 $.getJSON('./Population-density.geojson', function (geojson) {
   L.choropleth(geojson, {
     valueProperty: 'pop_t',
@@ -25,11 +25,19 @@ $.getJSON('./Population-density.geojson', function (geojson) {
       fillOpacity: 0.8
     },
     onEachFeature: function (feature, layer) {
-      //layer.bindPopup('State ' + feature.properties.pop_t_rank + '<br>' +
-        //  feature.properties.pop_t.toLocaleString() + 'pop_t');
          layer.on({
         click: zoomToFeature
     });
     }
   }).addTo(map)
 })
+
+$.getJSON('./citiestownpopulation2013.geojson', function (geojson) {
+ L.choropleth(geojson, {
+  style: {
+      color: '#f0f0ff',
+      weight: 2,
+    },
+ }).addTo(map)
+})
+
