@@ -9,6 +9,9 @@ L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map)
 
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
 // Add GeoJSON
 $.getJSON('./Population-density.geojson', function (geojson) {
   L.choropleth(geojson, {
@@ -22,9 +25,11 @@ $.getJSON('./Population-density.geojson', function (geojson) {
       fillOpacity: 0.8
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup('State ' + feature.properties.pop_t_rank + '<br>' +
-          feature.properties.pop_t.toLocaleString() + 'pop_t')
-
+      //layer.bindPopup('State ' + feature.properties.pop_t_rank + '<br>' +
+        //  feature.properties.pop_t.toLocaleString() + 'pop_t');
+         layer.on({
+        click: zoomToFeature
+    });
     }
   }).addTo(map)
 })
