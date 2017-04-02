@@ -1,7 +1,6 @@
 var map = L.map('map', {
-    center: [39.73, -104.99],
-    zoom: 10,
-    layers: [grayscale, cities]
+    center: [21.9162, 95.9560],
+    zoom: 5,
 });
 
 // Add basemap
